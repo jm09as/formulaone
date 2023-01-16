@@ -5,6 +5,9 @@
 <body class="body">
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="container">
+    <h3 th:text="${FormulaOneTeam.id} == 0 ? 'Create a new Formula 1 Team' : 'Update ' +  ${FormulaOneTeam.teamName} + ' Team data' ">
+        Create a new Formula 1
+        Team</h3>
     <form action="#" th:action="${FormulaOneTeam.id} == 0 ? @{/create} : @{/update/{id}(id=${FormulaOneTeam.id})}"
           method="post" th:object="${FormulaOneTeam}">
         <div class="form-group col-md-6">

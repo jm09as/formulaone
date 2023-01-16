@@ -5,7 +5,7 @@ import com.bredex.formulaone.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
+import java.util.List;
 
 @Service
 public class ClientService {
@@ -17,7 +17,7 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public Client getClientByName(Client client) throws NoSuchElementException {
-        return clientRepository.findByName(client.getName()).orElseThrow();
+    public List<Client> getAllClient() {
+        return clientRepository.findAll();
     }
 }

@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: header"></div>
+<title>Home F1</title>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="frame">
+    <div class="container">
+        <h1 th:text="${exception}"></h1>
+    </div>
+</div>
+</body>
+</html>

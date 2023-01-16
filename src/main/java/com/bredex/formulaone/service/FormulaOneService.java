@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Service
 public class FormulaOneService {
@@ -33,11 +34,15 @@ public class FormulaOneService {
         return formulaOneValidation.getValidatorErrors();
     }
 
-    public List<FormulaOneTeam> listTeam() {
+    public List<FormulaOneTeam> GetTeams() {
         return formulaRepository.findAll();
     }
 
     public FormulaOneTeam getTeamById(FormulaOneTeam formulaOneTeam) {
-        return formulaRepository.findById(formulaOneTeam.getId()).orElseThrow();
+        try {
+            return formulaRepository.findById(formulaOneTeam.getId()).orElseThrow(NoSuchElementException::new);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("The specified value does not exist!");
+        }
     }
 }

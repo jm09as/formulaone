@@ -3,13 +3,15 @@ package com.bredex.formulaone.controller;
 import com.bredex.formulaone.model.FormulaOneTeam;
 import com.bredex.formulaone.service.FormulaOneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @Controller
@@ -24,6 +26,11 @@ public class HomeController {
     }
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    @GetMapping
+    public String formulaOne() {
+        return "redirect:/createform";
+    }
 
     @GetMapping("/createform")
     public String createForm(FormulaOneTeam formulaOneTeam, Model model) {
@@ -47,7 +54,7 @@ public class HomeController {
 
     @GetMapping("/list")
     public String listTeam(Model model) {
-        model.addAttribute("FormulaOneTeam", formulaOneService.listTeam());
+        model.addAttribute("FormulaOneTeam", formulaOneService.GetTeams());
         return "list-team";
     }
 
@@ -69,5 +76,13 @@ public class HomeController {
     public String update(FormulaOneTeam formulaOneTeam) {
         formulaOneService.save(formulaOneTeam);
         return "redirect:/list";
+    }
+
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+    @ExceptionHandler(value = RuntimeException.class)
+    public String error(RuntimeException e, Model model) {
+        model.addAttribute("exception", e.getMessage());
+        return "error";
     }
 }

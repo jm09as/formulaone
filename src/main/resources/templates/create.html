@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/header :: header"></div>
+<title>Add F1 team</title>
+<body class="body">
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+    <form action="#" th:action="${FormulaOneTeam.id} == 0 ? @{/create} : @{/update/{id}(id=${FormulaOneTeam.id})}"
+          method="post" th:object="${FormulaOneTeam}">
+        <div class="form-group col-md-6">
+            <label for="teamName">Team Name</label>
+            <input type="text" class="form-control" id="teamName" placeholder="Team Name" th:field="*{teamName}">
+            <!--            <span class="validatorError" th:if="${#fields.hasErrors('teamName')}"-->
+            <!--                  th:errors="*{teamName}"></span>-->
+            <span class="validatorError" th:text="${nameError} == null ? '' : ${nameError}"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="foundingYear">Founding Year</label>
+            <input type="date" class="form-control" id="foundingYear" placeholder="Founding Year"
+                   th:field="*{foundingYear}">
+            <!--            <span class="validatorError" th:if="${#fields.hasErrors('foundingYear')}"-->
+            <!--                  th:errors="*{foundingYear}"></span>-->
+            <span class="validatorError" th:text="${foundationError} == null ? '' : ${foundationError}"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="worldChampWon">World Championship Won</label>
+            <input type="number" class="form-control" id="worldChampWon" placeholder="World Championship Won"
+                   th:field="*{worldChampWon}">
+            <!--            <span class="validatorError" th:if="${#fields.hasErrors('worldChampWon')}"-->
+            <!--                  th:errors="*{worldChampWon}"></span>-->
+            <span class="validatorError" th:text="${worldChampWonError} == null ? '' : ${worldChampWonError}"></span>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="registrationFee" name="registrationFee"
+                   th:field="*{registrationFee}">
+            <label class="form-check-label" for="registrationFee">Is registration fee paid?</label>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary"
+                    th:text="${FormulaOneTeam.id} == 0 ? Create : Update">Create
+                Team
+            </button>
+        </div>
+    </form>
+</div>
+</body>

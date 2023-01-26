@@ -19,7 +19,7 @@ import java.util.Objects;
 public class FormulaOneTeam {
 
     @Id
-    @SequenceGenerator(name = "FORMULA", initialValue = 4)
+    @SequenceGenerator(name = "FORMULA", initialValue = 5)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "FORMULA")
     private int id;
     private String teamName;

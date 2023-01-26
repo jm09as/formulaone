@@ -5,7 +5,10 @@ import com.bredex.formulaone.service.FormulaOneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Map;
 
@@ -21,11 +24,6 @@ public class HomeController {
     }
 
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    @GetMapping
-    public String formulaOne() {
-        return "redirect:/createform";
-    }
 
     @GetMapping("/createform")
     public String createForm(FormulaOneTeam formulaOneTeam, Model model) {
@@ -73,11 +71,4 @@ public class HomeController {
         return "redirect:/list";
     }
 
-    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-    @ExceptionHandler(value = RuntimeException.class)
-    public String error(RuntimeException e, Model model) {
-        model.addAttribute("exception", e.getMessage());
-        return "error";
-    }
 }

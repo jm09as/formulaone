@@ -1,56 +1,52 @@
 package com.bredex.formulaone.config;
 
+import com.bredex.formulaone.service.SecurityService;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
+
+    private SecurityService securityService;
+
+    @Autowired
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password(passwordEncoder().encode("f1test2018"))
-                .authorities("BOSS")
-                .roles("BOSS")
+    @Bean
+    public SecurityFilterChain securityFilterChain(@NotNull HttpSecurity http) throws Exception {
+        return http.csrf(c -> c.ignoringAntMatchers("/h2-console/**", "/resources/**", "/static/**"))
+                .authorizeRequests(a -> a
+                        .antMatchers("/h2-console/**", "/resources/**").permitAll()
+                        .antMatchers("/create/**", "/delete/**").hasAnyAuthority("ROLE_BOSS")
+                        .antMatchers("/update/**").hasAnyAuthority("ROLE_BOSS", "ROLE_CLIENT"))
+                .formLogin().loginPage("/login").permitAll()
+                .defaultSuccessUrl("/create", true).permitAll()
                 .and()
-                .withUser("client")
-                .password(passwordEncoder().encode("username"))
-                .authorities("CLIENT")
-                .roles("CLIENT");
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/resources/**", "/h2-console/**");
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-//                .antMatchers("/resources/**", "/h2-console/**").permitAll()
-                .antMatchers("/create/**", "/delete/**").hasAnyRole("BOSS")
-                .antMatchers("/update/**").hasAnyRole("CLIENT", "BOSS")
-//                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login")
-                .defaultSuccessUrl("/list", true)
-                .permitAll()
-                .and()
-                .csrf().disable();
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .deleteCookies()
+                        .invalidateHttpSession(true)
+                        .permitAll()
+                )
+                .headers(h -> h.frameOptions().sameOrigin())
+                .userDetailsService(securityService)
+                .build();
     }
 
 }

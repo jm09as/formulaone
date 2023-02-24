@@ -5,9 +5,9 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <div class="frame">
     <div class="center-screen">
-        <form action="/login" method="post">
+        <form th:action="@{/login}" action="#" method="post">
             <h4 class="validatorError" th:text="${errorMsg} == null ? '': ${errorMsg}"></h4>
-            <h4 class="validatorError" th:text="${msg} == null ? '': ${errorMsg}"></h4>
+            <h3 class="validatorError" th:text="${msg} == null ? '': ${errorMsg}"></h3>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">User Name</label>
                 <input name="username" type="text" class="form-control" id="exampleInputEmail1"

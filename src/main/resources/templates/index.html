@@ -11,13 +11,15 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Name</th>
+                <th scope="col">Role</th>
                 <th scope="col">Registration Day</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="client : ${clients}">
                 <th th:text="${client.id}">1</th>
-                <td th:text="${client.name}">Mark</td>
+                <td th:text="${client.username}">Mark</td>
+                <td th:text="${client.roles}">roles</td>
                 <td th:text="${#temporals.format(client.regDate,'yyyy-MM-dd')}">2000-12-01</td>
             </tr>
             </tbody>

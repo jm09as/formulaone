@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Integer> {
 
-    @Query(nativeQuery = true, value = "SELECT * FROM client where name = ?1")
+    @Query(nativeQuery = true, value = "SELECT * FROM client WHERE username = ?1")
     Optional<Client> findByName(String name);
 }

@@ -8,11 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/")
 public class ClientsController {
 
     private ClientService clientService;
+    private Client currentUser;
+
 
     @Autowired
     public void setClientService(ClientService clientService) {
@@ -20,8 +24,17 @@ public class ClientsController {
     }
 
     @GetMapping("/home")
-    public String index(Model model, Client client) {
-        model.addAttribute("clients", clientService.getAllClient());
+    public String index(Model model, Client client, Principal principal) {
+        try {
+            currentUser = clientService.getAllClient()
+                    .stream()
+                    .filter(c -> c.getUsername().equals(principal.getName()))
+                    .findFirst().orElseThrow(Exception::new);
+        } catch (Exception e) {
+            currentUser = new Client();
+            currentUser.setUsername("no name");
+        }
+        model.addAttribute("clients", currentUser);
         return "index";
     }
 }

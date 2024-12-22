@@ -1,7 +1,10 @@
 package com.bredex.formulaone.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -13,7 +16,6 @@ import java.util.Objects;
 @Getter
 @Entity
 @Table(name = "FORMULATEAM")
-@NoArgsConstructor
 public class FormulaOneTeam {
 
     @Id

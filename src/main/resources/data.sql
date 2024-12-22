@@ -3,4 +3,4 @@ INSERT INTO Formulateam (id, team_Name, founding_Year, world_Champ_Won, registra
 INSERT INTO Formulateam (id, team_Name, founding_Year, world_Champ_Won, registration_Fee, reg_date) VALUES (2, 'Sauber Petronas', '1980-12-31', 0, false,'2023-02-01')
 INSERT INTO Formulateam (id, team_Name, founding_Year, world_Champ_Won, registration_Fee, reg_date) VALUES (3, 'Mercedes', '2001-05-14', 12, true,'2023-02-01')
 INSERT INTO Formulateam (id, team_Name, founding_Year, world_Champ_Won, registration_Fee, reg_date) VALUES (4, 'Red Bull', '2004-02-10', 4, true,'2023-02-01')
-INSERT INTO Client (id, password, username, roles, active, reg_Date) VALUES (1, '$2a$12$vRMQWZ0SLUH8dC7CalwWCeAVea9MYUjAmCpf2LsOKp6C2mXuQr54W', 'Marci', 'ROLE_ADMIN', true, '2020-05-23 10:00')
+INSERT INTO Client (id, password, username, roles, active, reg_Date) VALUES (1, '$2a$12$C7IDqa08x19fUrCQ2OYH8eG/2uVmaHnY5RMyu.coTydhoWwV/7zmm', 'Marci', 'ROLE_ADMIN', true, '2020-05-23 10:00')

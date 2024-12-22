@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/header :: header"></div>
+<!--<script src="../jsp/first.js"></script>-->
+<div th:replace="~{fragments/header :: header}"></div>
 <title>Add F1 team</title>
 <body class="body">
-<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="~{fragments/navbar.html :: navbar}"></div>
 <div class="container">
     <h3 th:text="${FormulaOneTeam.id} == 0 ? 'Create a new Formula 1 Team' : 'Update ' +  ${FormulaOneTeam.teamName} + ' Team data' ">
         Create a new Formula 1
@@ -13,6 +14,7 @@
         <div class="form-group col-md-6">
             <label for="teamName">Team Name</label>
             <input type="text" class="form-control" id="teamName" placeholder="Team Name" th:field="*{teamName}">
+
             <!--            <span class="validatorError" th:if="${#fields.hasErrors('teamName')}"-->
             <!--                  th:errors="*{teamName}"></span>-->
             <span class="validatorError" th:text="${nameError} == null ? '' : ${nameError}"></span>
@@ -38,12 +40,17 @@
                    th:field="*{registrationFee}">
             <label class="form-check-label" for="registrationFee">Is registration fee paid?</label>
         </div>
+        <p id="demo"></p>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary"
-                    th:text="${FormulaOneTeam.id} == 0 ? Create : Update">Create
-                Team
+            <button onclick="myFunction()" type="submit" class="btn btn-primary"
+                    th:text="${FormulaOneTeam.id} == 0 ? Create : Update">Create Team
             </button>
         </div>
     </form>
+    <div>
+        <p id="dataTime"></p>
+        <button class="btn btn-primary" type="button" th:onclick="myFunctions()">Click me to display Time.</button>
+    </div>
 </div>
+<script src="../js/first.js"></script>
 </body>

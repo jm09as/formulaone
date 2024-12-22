@@ -22,7 +22,7 @@ public class SecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Client client = clientRepository.findByName(username).orElseThrow(() -> new UsernameNotFoundException("Client not found!"));
-        System.out.println(client);
+//        System.out.println(client);
         return new SecurityUser(client);
     }
 }

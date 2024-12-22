@@ -5,15 +5,17 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
 
 public class SecurityUser implements UserDetails, Serializable {
+    @Serial
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
-    private String password;
+    private final String password;
 
     private final String username;
 
@@ -34,8 +36,8 @@ public class SecurityUser implements UserDetails, Serializable {
         this.client = client;
         this.username = client.getUsername();
         this.password = client.getPassword();
+        this.accountNonLocked = client.isActive();
         this.accountNonExpired = true;
-        this.accountNonLocked = true;
         this.credentialsNonExpired = true;
         this.enabled = true;
         this.authorities = Set.of(new SimpleGrantedAuthority(client.getRoles()));

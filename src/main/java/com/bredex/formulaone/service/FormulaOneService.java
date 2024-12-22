@@ -34,7 +34,7 @@ public class FormulaOneService {
         return formulaOneValidation.getValidatorErrors();
     }
 
-    public List<FormulaOneTeam> GetTeams() {
+    public List<FormulaOneTeam> getTeams() {
         return formulaRepository.findAll();
     }
 

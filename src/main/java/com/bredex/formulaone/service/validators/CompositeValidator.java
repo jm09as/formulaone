@@ -3,11 +3,13 @@ package com.bredex.formulaone.service.validators;
 import com.bredex.formulaone.model.FormulaOneTeam;
 import com.bredex.formulaone.service.exceptions.IncorrectEnteredDataException;
 import com.bredex.formulaone.service.Validator;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class CompositeValidator implements Validator<FormulaOneTeam> {
 
     private static final CompositeValidator INSTANCE = new CompositeValidator();
@@ -38,7 +40,4 @@ public class CompositeValidator implements Validator<FormulaOneTeam> {
         }
     }
 
-    public Map<String, String> getValidatorErrors() {
-        return validatorErrors;
-    }
 }

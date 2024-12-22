@@ -47,7 +47,7 @@ public class HomeController {
 
     @GetMapping("/list")
     public String listTeam(Model model) {
-        model.addAttribute("FormulaOneTeam", formulaOneService.GetTeams());
+        model.addAttribute("FormulaOneTeam", formulaOneService.getTeams());
         return "list-team";
     }
 

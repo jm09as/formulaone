@@ -1,11 +1,13 @@
 package com.bredex.formulaone.model;
 
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -19,11 +21,16 @@ public class Client implements Serializable {
     @SequenceGenerator(name = "CLIENT", initialValue = 2)
     private int id;
     private String password;
+    @Column(nullable = false)
     private String username;
     private String roles;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate regDate = LocalDate.now();
+    @Column(nullable = false)
+    private boolean active;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Column(updatable = false, name = "regDate")
+    private LocalDateTime regDate = LocalDateTime.now();
 
     public Client() {
     }
@@ -51,4 +58,5 @@ public class Client implements Serializable {
                 ", regDate=" + regDate +
                 '}';
     }
+    
 }

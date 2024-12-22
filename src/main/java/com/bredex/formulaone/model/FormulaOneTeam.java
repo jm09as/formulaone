@@ -1,12 +1,9 @@
 package com.bredex.formulaone.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -16,19 +13,25 @@ import java.util.Objects;
 @Getter
 @Entity
 @Table(name = "FORMULATEAM")
+@NoArgsConstructor
 public class FormulaOneTeam {
 
     @Id
     @SequenceGenerator(name = "FORMULA", initialValue = 5)
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "FORMULA")
     private int id;
+
     @Column(nullable = false, length = 40)
     private String teamName;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false, updatable = false)
     private LocalDate foundingYear;
+
     private int worldChampWon;
+
     private boolean registrationFee;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(updatable = false, name = "regDate")
     private LocalDate registrationDate = LocalDate.now();
